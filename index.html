@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTBOT Pedido</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <header class="header">
+        <h1>GTBOT</h1>
+        <p>Preenchimento de Pedido</p>
+    </header>
+
+    <section class="card">
+        <h2>👤 Cliente</h2>
+
+        <div class="grid">
+            <div class="campo">
+                <label>Nome do Cliente</label>
+                <input type="text" id="clienteNome" placeholder="Ex: João Silva">
+            </div>
+
+            <div class="campo">
+                <label>Telefone</label>
+                <input type="text" id="clienteTelefone" placeholder="(99) 99999-9999">
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>📦 Itens do Pedido</h2>
+
+        <div class="tabela-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tamanho</th>
+                        <th>Número</th>
+                        <th>Qtd</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="listaItens"></tbody>
+            </table>
+        </div>
+
+        <button class="btn-sec" onclick="adicionarLinha()">➕ Adicionar Item</button>
+    </section>
+
+    <button class="btn-main" onclick="gerarArquivo()">💾 Baixar Arquivo GTB</button>
+
+    <button class="btn-main compartilhar" onclick="compartilharPedido()">
+        📤 Enviar Pedido no WhatsApp
+    </button>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
