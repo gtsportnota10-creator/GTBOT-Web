@@ -103,7 +103,7 @@ function compartilharPedido() {
 
     if (navigator.share) {
         navigator.share({
-            title: "Pedido",
+            title: "Pedido GTBOT",
             text: texto
         });
     } else {
