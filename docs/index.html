@@ -2,18 +2,30 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GTBOT Pedido</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Pedido Online</title>
+
+    <!-- OPEN GRAPH – CONTROLA APARÊNCIA NO WHATSAPP -->
+    <meta property="og:title" content="Preencher Pedido">
+    <meta property="og:description" content="Preencha seu pedido de forma rápida e envie pelo WhatsApp.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gtsportnota10-creator.github.io/GTBOT-Web/">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app">
+
+    <!-- CABEÇALHO -->
     <header class="header">
-        <h1>Seja Bem Vindo!</h1>
-        <p>Por Favor Preencha o Formulário de Pedido</p>
+        <h1>Seja Bem-vindo!</h1>
+        <p>Por favor, preencha o formulário de pedido</p>
     </header>
 
+    <!-- DADOS DO CLIENTE -->
     <section class="card">
         <h2>Dados do Cliente</h2>
         <div class="grid">
@@ -28,35 +40,44 @@
         </div>
     </section>
 
-    <section class="card lista-pedido">
-    <h2>Lista de Pedido 1</h2>
-    <div class="campo">
-        <label>Modelagem</label>
-        <input type="text" class="modelagem" placeholder="Ex:Adulto Gola Redonda">
-    </div>
-    <div class="tabela-wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th class="col-nome">Nome</th>
-                    <th class="col-tam">Tam</th>
-                    <th class="col-num">Nº</th>
-                    <th class="col-qtd">Quantidade</th>
-                    <th class="col-del"></th>
-                </tr>
-            </thead>
-            <tbody class="lista-itens"></tbody>
-        </table>
-    </div>
-    <button class="btn-sec" onclick="adicionarLinha(this)">➕ Adicionar Item</button>
-</section>
+    <!-- LISTAS DE PEDIDO -->
+    <div id="listasContainer">
 
-<button class="btn-sec" onclick="adicionarNovaLista()">➕ Adicionar Nova Lista</button>
+        <!-- LISTA INICIAL (APENAS UMA AO ABRIR) -->
+        <section class="card lista-pedido">
+            <h2>Lista de Pedido 1</h2>
 
-    </section>
-    
-    <button class="btn-main" onclick="gerarArquivo()">Baixar Arquivo</button>
-    
+            <div class="campo">
+                <label>Modelagem</label>
+                <input type="text" class="modelagem" placeholder="Ex: Adulto Gola Redonda">
+            </div>
+
+            <div class="tabela-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="col-nome">Nome</th>
+                            <th class="col-tam">Tam</th>
+                            <th class="col-num">Nº</th>
+                            <th class="col-qtd">Qtd</th>
+                            <th class="col-del"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="lista-itens"></tbody>
+                </table>
+            </div>
+
+            <button class="btn-sec" onclick="adicionarLinha(this)">➕ Adicionar Item</button>
+            <button class="btn-sec compartilhar" onclick="compartilharLista(this)">📲 Enviar esta Lista</button>
+            <button class="btn-sec btn-remove" onclick="fecharLista(this)">❌ Fechar Lista</button>
+        </section>
+
+    </div>
+
+    <!-- BOTÕES GERAIS -->
+    <button class="btn-sec" onclick="adicionarNovaLista()">➕ Adicionar Nova Lista</button>
+    <button class="btn-main" onclick="gerarArquivo()">📥 Baixar Arquivo</button>
+
 </div>
 
 <script src="script.js"></script>
