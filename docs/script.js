@@ -100,20 +100,22 @@ function gerarArquivo() {
     a.click();
 }
 
-// Função para compartilhar no WhatsApp todas as listas
 function compartilharPedido() {
-    let texto = "DADOS DO CLIENTE;\n";
     const nomeCliente = document.getElementById("clienteNome").value || "";
     const telefone = document.getElementById("clienteTelefone").value || "";
-    texto += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
-
     const cards = document.querySelectorAll(".lista-pedido");
-    cards.forEach((card, idx) => {
+
+    cards.forEach(card => {
+        let texto = "DADOS DO CLIENTE;\n";
+        texto += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
+
         const modelagem = card.querySelector(".modelagem").value || "";
         texto += `MODELAGEM;${modelagem}\n`;
         texto += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
 
         const linhas = card.querySelectorAll(".lista-itens tr");
+        let temItem = false;
+
         linhas.forEach(linha => {
             const inputs = linha.querySelectorAll("input");
             const item = inputs[0].value || "";
@@ -122,23 +124,19 @@ function compartilharPedido() {
             const quantidade = inputs[3].value || "";
 
             if (item || tamanho || numero || quantidade) {
+                temItem = true;
                 texto += `${item};${tamanho};${numero};${quantidade}\n`;
             }
         });
-        texto += ";\n";
+
+        if (!temItem) {
+            // Pula listas vazias
+            return;
+        }
+
+        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
+        
+        // Abrir link em nova aba para cada lista
+        window.open(url, "_blank");
     });
-
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
-    if (navigator.share) {
-        navigator.share({ title: "Pedido GTBOT", text: texto })
-            .catch(() => window.open(url, '_blank'));
-    } else {
-        window.open(url, '_blank');
-    }
 }
-
-// Inicializa a primeira linha da primeira lista ao carregar a página
-document.addEventListener("DOMContentLoaded", () => {
-    const primeiraLista = document.querySelector(".lista-pedido .btn-sec");
-    adicionarLinha(primeiraLista);
-});
