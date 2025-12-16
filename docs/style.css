@@ -51,7 +51,7 @@ body {
     margin-bottom: 18px;
 }
 
-/* FORM */
+/* FORM CLIENTE */
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -73,33 +73,43 @@ body {
     font-size: 15px;
 }
 
-/* TABELA - PADRÃO DESKTOP */
+/* TABELA */
 .tabela-wrapper {
-    overflow-x: auto;
+    width: 100%;
+    overflow-x: hidden; /* Remove scroll lateral */
 }
 
 table {
     width: 100%;
-    min-width: 600px;
     border-collapse: collapse;
+    table-layout: fixed; /* Força as larguras das colunas */
 }
+
+/* Larguras das colunas para PC */
+th:nth-child(1) { width: 40%; }
+th:nth-child(2) { width: 20%; }
+th:nth-child(3) { width: 15%; }
+th:nth-child(4) { width: 15%; }
+th:nth-child(5) { width: 10%; }
 
 th {
     background: #e2e8f0;
-    padding: 12px;
+    padding: 12px 5px;
+    font-size: 14px;
     text-align: left;
 }
 
 td {
-    padding: 8px;
+    padding: 8px 3px;
     border-top: 1px solid #e5e7eb;
 }
 
 td input {
     width: 100%;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 10px 5px;
+    border-radius: 8px;
     border: 1px solid #cbd5f5;
+    font-size: 14px;
 }
 
 /* BOTÕES */
@@ -130,51 +140,44 @@ button {
     background: linear-gradient(135deg, #25d366, #128c7e);
 }
 
-/* ... mantenha o restante do código igual até chegar no MOBILE ... */
-
-/* MOBILE - MODO COMPACTO EM LINHA */
+/* ===========================================
+   Ajustes Específicos para Celular (Mobile)
+   =========================================== */
 @media (max-width: 768px) {
     .app {
-        padding: 10px; /* Reduz margem lateral do app */
+        padding: 10px;
     }
 
     .card {
-        padding: 12px; /* Reduz espaço interno do card */
-        border-radius: 12px;
+        padding: 15px 10px;
     }
 
     .grid {
-        grid-template-columns: 1fr; /* Nome e Telefone ainda ficam um sob o outro para não apertar */
-        gap: 10px;
+        grid-template-columns: 1fr;
+        gap: 12px;
     }
 
-    /* Ajuste da Tabela para caber na tela */
-    table {
-        min-width: 100%; /* Remove os 600px e força os 100% da tela */
-        display: table; /* Garante que continue como tabela */
-    }
-
+    /* Tabela compacta em linha */
     th, td {
-        padding: 4px 2px; /* Espaçamento mínimo entre colunas */
-        font-size: 12px;  /* Texto menor para caber */
+        padding: 6px 2px;
+        font-size: 11px; /* Diminui a fonte do cabeçalho */
     }
 
     td input {
-        padding: 8px 4px; /* Inputs mais baixos e estreitos */
-        font-size: 13px;
+        padding: 8px 4px;
+        font-size: 12px; /* Diminui a fonte do input */
         border-radius: 6px;
     }
 
-    /* Esconde colunas menos importantes se necessário, 
-       ou apenas deixa os inputs bem flexíveis */
-    .tabela-wrapper {
-        overflow-x: hidden; /* Tenta eliminar o scroll lateral */
-    }
-
-    /* Ajuste específico para as larguras das colunas no celular */
-    th:nth-child(1), td:nth-child(1) { width: 40%; } /* Nome mais largo */
-    th:nth-child(2), td:nth-child(2) { width: 20%; } /* Tamanho */
-    th:nth-child(3), td:nth-child(3) { width: 15%; } /* Número */
+    /* Forçar colunas a serem bem estreitas para caber tudo */
+    th:nth-child(1), td:nth-child(1) { width: 38%; } /* Item */
+    th:nth-child(2), td:nth-child(2) { width: 22%; } /* Tam */
+    th:nth-child(3), td:nth-child(3) { width: 15%; } /* Num */
     th:nth-child(4), td:nth-child(4) { width: 15%; } /* Qtd */
     th:nth-child(5), td:nth-child(5) { width: 10%; } /* X */
+
+    .btn-sec {
+        width: 100%;
+        font-size: 14px;
+    }
 }
