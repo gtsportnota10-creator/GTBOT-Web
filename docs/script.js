@@ -1,18 +1,18 @@
 function adicionarLinha() {
     const lista = document.getElementById("listaItens");
+
     const tr = document.createElement("tr");
+    // Mantive os data-labels caso você precise no futuro, mas o foco é o layout em linha
     tr.innerHTML = `
-        <td><input placeholder="Ex: João"></td>
-        <td><input placeholder="G"></td>
-        <td><input placeholder="10"></td>
-        <td><input type="number" min="1" placeholder="1"></td>
+        <td data-label="Item"><input placeholder="Item"></td>
+        <td data-label="Tam"><input placeholder="Tam"></td>
+        <td data-label="Nº"><input placeholder="Nº"></td>
+        <td data-label="Qtd"><input type="number" min="1" placeholder="0"></td>
         <td><button class="btn-remove" onclick="this.closest('tr').remove()">❌</button></td>
     `;
+
     lista.appendChild(tr);
 }
-adicionarLinha();
-
-// ... mantenha suas funções gerarArquivo() e compartilharPedido() aqui ...
 
 // Inicializa com uma linha vazia
 adicionarLinha();
