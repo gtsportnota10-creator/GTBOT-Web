@@ -1,20 +1,17 @@
 function adicionarLinha() {
     const lista = document.getElementById("listaItens");
-
     const tr = document.createElement("tr");
     tr.innerHTML = `
-        <td data-label="Modelo"><input placeholder="Ex: Gola Polo"></td>
-        <td data-label="Tam"><input placeholder="M"></td>
-        <td data-label="Nº"><input placeholder="10"></td>
-        <td data-label="Qtd"><input type="number" min="1" placeholder="1"></td>
+        <td><input placeholder="Ex: Polo Azul"></td>
+        <td><input placeholder="G"></td>
+        <td><input placeholder="10"></td>
+        <td><input type="number" min="1" placeholder="1"></td>
         <td><button class="btn-remove" onclick="this.closest('tr').remove()">❌</button></td>
     `;
-
     lista.appendChild(tr);
 }
-
-// Inicializa com uma linha vazia
 adicionarLinha();
+
 
 /* ================================
    GERAR ARQUIVO GTB
