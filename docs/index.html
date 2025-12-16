@@ -31,30 +31,30 @@
     </section>
 
     <section class="card">
-        <h2>📦 Itens do Pedido</h2>
+    <h2>Itens do Pedido</h2>
 
-        <div class="tabela-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Tam</th>
-                        <th>Nº</th>
-                        <th>Qtd</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="listaItens"></tbody>
-            </table>
-        </div>
+    <div class="tabela-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 38%;">Nome/Cor</th>
+                    <th style="width: 18%;">Tam</th>
+                    <th style="width: 15%;">Nº</th>
+                    <th style="width: 15%;">Qtd</th>
+                    <th style="width: 14%;"></th>
+                </tr>
+            </thead>
+            <tbody id="listaItens"></tbody>
+        </table>
+    </div>
 
-        <button class="btn-sec" onclick="adicionarLinha()">➕ Adicionar Item</button>
-    </section>
-
-    <button class="btn-main" onclick="gerarArquivo()">💾 Baixar Arquivo GTB</button>
+    <button class="btn-sec" onclick="adicionarLinha()">➕ Adicionar Camisa</button>
+</section>
+    
 
     <button class="btn-main compartilhar" onclick="compartilharPedido()">
-        📤 Enviar Pedido no WhatsApp
+        Enviar Pedido no WhatsApp
+        <button class="btn-main" onclick="gerarArquivo()">💾 Baixar Arquivo</button>
     </button>
 
 </div>
