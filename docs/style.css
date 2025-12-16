@@ -109,7 +109,7 @@ button { border: none; border-radius: 12px; font-weight: bold; cursor: pointer; 
         width: 100%;
         margin-left: 0;
         margin-right: 0;
-        border-radius: 10; /* Opcional: remove o arredondado para parecer um app nativo */
+        border-radius: 0; /* Opcional: remove o arredondado para parecer um app nativo */
         padding: 15px 5px; /* Reduz o espaço interno lateral do cartão */
         box-shadow: none; /* Opcional: remove a sombra para ganhar espaço visual */
     }
