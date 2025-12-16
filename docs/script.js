@@ -50,6 +50,8 @@ function adicionarNovaLista() {
             </table>
         </div>
     `;
+
+
     
     // Cria o botão "Adicionar Item" dinamicamente
     const botaoAdicionarItem = document.createElement("button");
@@ -70,6 +72,21 @@ function adicionarNovaLista() {
     // Insere antes do botão "Adicionar Nova Lista"
     const botaoNovaLista = document.querySelector("button[onclick='adicionarNovaLista()']");
     app.insertBefore(card, botaoNovaLista);
+
+    // Botão "Fechar Lista"
+const botaoFecharLista = document.createElement("button");
+botaoFecharLista.className = "btn-remove"; // pode usar estilo similar ao botão ❌
+botaoFecharLista.textContent = "Fechar Lista";
+botaoFecharLista.style.marginTop = "10px"; // espaçamento opcional
+botaoFecharLista.addEventListener("click", () => {
+    if (confirm("Deseja realmente fechar esta lista?")) {
+        card.remove(); // remove o card inteiro
+    }
+});
+
+// Adiciona o botão no final do card
+card.appendChild(botaoFecharLista);
+
 }
 
 // Função para gerar arquivo de todas as listas
