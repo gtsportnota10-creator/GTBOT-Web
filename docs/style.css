@@ -135,7 +135,42 @@ button {
         grid-template-columns: 1fr;
     }
 
-    table {
-        font-size: 13px;
+    /* Transformando a tabela em blocos empilhados */
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
     }
-}
+
+    /* Esconde o cabeçalho da tabela (Nome, Tamanho, etc) pois não cabem na horizontal */
+    thead tr {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 20px;
+        border: 1px solid #e5e7eb;
+        padding: 10px;
+        border-radius: 15px;
+        background: #fff;
+    }
+
+    td {
+        border: none;
+        padding: 6px 0;
+        position: relative;
+    }
+
+    /* Adiciona um "rótulo" antes de cada campo para o cliente saber o que preencher */
+    td:before {
+        content: attr(data-label); /* Pega o texto do atributo data-label que vamos por no HTML */
+        font-weight: bold;
+        display: block;
+        margin-bottom: 4px;
+        font-size: 12px;
+        color: #64748b;
+    }
+
+    table {
+        min-width: unset; /* Remove os 600px que forçavam o scroll */
+    }
+        }
