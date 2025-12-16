@@ -2,7 +2,7 @@ function adicionarLinha() {
     const lista = document.getElementById("listaItens");
     const tr = document.createElement("tr");
     tr.innerHTML = `
-        <td><input placeholder="Ex: Polo Azul"></td>
+        <td><input placeholder="Ex: João"></td>
         <td><input placeholder="G"></td>
         <td><input placeholder="10"></td>
         <td><input type="number" min="1" placeholder="1"></td>
@@ -13,45 +13,88 @@ function adicionarLinha() {
 adicionarLinha();
 
 // ... mantenha suas funções gerarArquivo() e compartilharPedido() aqui ...
-function baixarArquivo(nome, conteudo) {
+
+// Inicializa com uma linha vazia
+adicionarLinha();
+
+/* ================================
+   GERAR ARQUIVO GTB
+================================ */
+function gerarArquivo() {
+    let conteudo = "DADOS DO CLIENTE;\n";
+    const nomeCliente = document.getElementById("clienteNome").value || "";
+    const telefone = document.getElementById("clienteTelefone").value || "";
+
+    conteudo += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
+    conteudo += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
+
+    const linhas = document.querySelectorAll("#listaItens tr");
+    let temLinha = false;
+
+    linhas.forEach(linha => {
+        const inputs = linha.querySelectorAll("input");
+        const item = inputs[0].value || "";
+        const tamanho = inputs[1].value || "";
+        const numero = inputs[2].value || "";
+        const quantidade = inputs[3].value || "";
+
+        if (item || tamanho || numero || quantidade) {
+            temLinha = true;
+            conteudo += `${item};${tamanho};${numero};${quantidade}\n`;
+        }
+    });
+
+    if (!temLinha) {
+        alert("Preencha pelo menos um item.");
+        return;
+    }
+
     const blob = new Blob([conteudo], { type: "text/plain;charset=utf-8" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = nome;
+    a.download = "GTBOT_DADOS_PACOTE.gtb";
     a.click();
 }
 
-function gerarArquivo() {
-    const nomeCli = document.getElementById("clienteNome").value || "CLIENTE";
-    const telCli = document.getElementById("clienteTelefone").value || "";
-    const cabecalho = `DADOS DO CLIENTE;\nNOME;${nomeCli}\nTELEFONE;${telCli}\n;\n`;
-
-    const dadosCamisas = extrairDados('listaCamisas');
-    const dadosShorts = extrairDados('listaShorts');
-
-    if (dadosCamisas) {
-        baixarArquivo(`GTB_CAMISAS_${nomeCli}.gtb`, cabecalho + "CAMISA;TAMANHO;NÚMERO;QUANTIDADE\n" + dadosCamisas);
-    }
-    
-    if (dadosShorts) {
-        setTimeout(() => {
-            baixarArquivo(`GTB_SHORTS_${nomeCli}.gtb`, cabecalho + "SHORT;TAMANHO;NÚMERO;QUANTIDADE\n" + dadosShorts);
-        }, 600);
-    }
-
-    if (!dadosCamisas && !dadosShorts) alert("Adicione pelo menos um item!");
-}
-
+/* ================================
+   WHATSAPP
+================================ */
 function compartilharPedido() {
-    const nomeCli = document.getElementById("clienteNome").value || "";
-    const telCli = document.getElementById("clienteTelefone").value || "";
-    let texto = `*PEDIDO GTBOT*\n*CLIENTE:* ${nomeCli}\n*TEL:* ${telCli}\n\n`;
+    let texto = "DADOS DO CLIENTE;\n";
+    const nomeCliente = document.getElementById("clienteNome").value || "";
+    const telefone = document.getElementById("clienteTelefone").value || "";
 
-    const camisas = extrairDados('listaCamisas');
-    if (camisas) texto += `*👕 CAMISAS (MOD;TAM;Nº;QTD)*\n${camisas}\n`;
+    texto += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
+    texto += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
 
-    const shorts = extrairDados('listaShorts');
-    if (shorts) texto += `*🩳 SHORTS (MOD;TAM;Nº;QTD)*\n${shorts}\n`;
+    const linhas = document.querySelectorAll("#listaItens tr");
+    let temItem = false;
 
-    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`, '_blank');
+    linhas.forEach(linha => {
+        const inputs = linha.querySelectorAll("input");
+        const item = inputs[0].value || "";
+        const tamanho = inputs[1].value || "";
+        const numero = inputs[2].value || "";
+        const quantidade = inputs[3].value || "";
+
+        if (item || tamanho || numero || quantidade) {
+            temItem = true;
+            texto += `${item};${tamanho};${numero};${quantidade}\n`;
+        }
+    });
+
+    if (!temItem) {
+        alert("Preencha pelo menos um item.");
+        return;
+    }
+
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
+    
+    // Tenta usar a API de compartilhamento do celular, se falhar abre o link direto
+    if (navigator.share) {
+        navigator.share({ title: "Pedido GTBOT", text: texto })
+            .catch(() => window.open(url, '_blank'));
+    } else {
+        window.open(url, '_blank');
+    }
 }
