@@ -105,6 +105,8 @@ function compartilharPedido() {
     const telefone = document.getElementById("clienteTelefone").value || "";
     const cards = document.querySelectorAll(".lista-pedido");
 
+    let delay = 0; // atraso em milissegundos entre cada abertura
+
     cards.forEach(card => {
         let texto = "DADOS DO CLIENTE;\n";
         texto += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
@@ -129,14 +131,15 @@ function compartilharPedido() {
             }
         });
 
-        if (!temItem) {
-            // Pula listas vazias
-            return;
-        }
+        if (!temItem) return; // pula listas vazias
 
         const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
-        
-        // Abrir link em nova aba para cada lista
-        window.open(url, "_blank");
+
+        // abre cada lista com atraso de 500ms para evitar bloqueio de pop-up
+        setTimeout(() => {
+            window.open(url, "_blank");
+        }, delay);
+
+        delay += 500; // aumenta o atraso para a próxima lista
     });
 }
