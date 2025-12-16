@@ -3,11 +3,11 @@ function adicionarLinha() {
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
-        <td><input placeholder="Nome"></td>
-        <td><input placeholder="Tamanho"></td>
-        <td><input placeholder="Número"></td>
-        <td><input type="number" min="1" placeholder="Qtd"></td>
-        <td><button onclick="this.closest('tr').remove()">❌</button></td>
+        <td data-label="Item"><input placeholder="Ex: Camiseta"></td>
+        <td data-label="Tamanho"><input placeholder="P, M, G"></td>
+        <td data-label="Número"><input placeholder="00"></td>
+        <td data-label="Qtd"><input type="number" min="1" placeholder="1"></td>
+        <td><button class="btn-remove" onclick="this.closest('tr').remove()">❌</button></td>
     `;
 
     lista.appendChild(tr);
@@ -21,8 +21,6 @@ adicionarLinha();
 ================================ */
 function gerarArquivo() {
     let conteudo = "";
-
-    // CABEÇALHO CLIENTE
     conteudo += "DADOS DO CLIENTE;\n";
 
     const nomeCliente = document.getElementById("clienteNome").value || "";
@@ -31,8 +29,6 @@ function gerarArquivo() {
     conteudo += `NOME;${nomeCliente}\n`;
     conteudo += `TELEFONE;${telefone}\n`;
     conteudo += ";\n";
-
-    // CABEÇALHO ITENS
     conteudo += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
 
     const linhas = document.querySelectorAll("#listaItens tr");
@@ -40,13 +36,11 @@ function gerarArquivo() {
 
     linhas.forEach(linha => {
         const inputs = linha.querySelectorAll("input");
-
         const item = inputs[0].value || "";
         const tamanho = inputs[1].value || "";
         const numero = inputs[2].value || "";
         const quantidade = inputs[3].value || "";
 
-        // só ignora linha totalmente vazia
         if (item || tamanho || numero || quantidade) {
             temLinha = true;
             conteudo += `${item};${tamanho};${numero};${quantidade}\n`;
@@ -84,7 +78,6 @@ function compartilharPedido() {
 
     linhas.forEach(linha => {
         const inputs = linha.querySelectorAll("input");
-
         const item = inputs[0].value || "";
         const tamanho = inputs[1].value || "";
         const numero = inputs[2].value || "";
@@ -105,8 +98,10 @@ function compartilharPedido() {
         navigator.share({
             title: "Pedido GTBOT",
             text: texto
+        }).catch(() => {
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`);
         });
     } else {
-        alert("Compartilhamento não suportado neste dispositivo.");
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`);
     }
 }
