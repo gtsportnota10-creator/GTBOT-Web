@@ -10,12 +10,12 @@
 
 <div class="app">
     <header class="header">
-        <h1>GTBOT</h1>
-        <p>Pedido de Camisas</p>
+        <h1>Seja Bem Vindo!</h1>
+        <p>Por Favor Preencha o Formulário de Pedido</p>
     </header>
 
     <section class="card">
-        <h2>👤 Dados do Cliente</h2>
+        <h2>Dados do Cliente</h2>
         <div class="grid">
             <div class="campo">
                 <label>Nome do Cliente</label>
@@ -29,12 +29,12 @@
     </section>
 
     <section class="card">
-        <h2>👕 Pedido de Camisas</h2>
+        <h2>Lista de Pedido</h2>
         <div class="tabela-wrapper">
             <table>
                 <thead>
                     <tr>
-                        <th class="col-nome">Camisa</th>
+                        <th class="col-nome">Nome</th>
                         <th class="col-tam">Tam</th>
                         <th class="col-num">Nº</th>
                         <th class="col-qtd">Qtd</th>
@@ -44,11 +44,12 @@
                 <tbody id="listaItens"></tbody>
             </table>
         </div>
-        <button class="btn-sec" onclick="adicionarLinha()">➕ Adicionar Camisa</button>
+        <button class="btn-sec" onclick="adicionarLinha()">➕ Adicionar Item</button>
     </section>
-
-    <button class="btn-main" onclick="gerarArquivo()">💾 Baixar Arquivo GTB</button>
-    <button class="btn-main compartilhar" onclick="compartilharPedido()">📤 Enviar no WhatsApp</button>
+    
+    <button class="btn-main compartilhar" onclick="compartilharPedido()">Enviar no WhatsApp</button>
+    <button class="btn-main" onclick="gerarArquivo()">Baixar Arquivo GTB</button>
+    
 </div>
 
 <script src="script.js"></script>
