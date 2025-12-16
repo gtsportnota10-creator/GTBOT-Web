@@ -5,8 +5,12 @@
 
     body {
     margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    background: radial-gradient(circle at top, #1e293b, #020617);
+
+    color: #e5e7eb;
 }
 
 
@@ -103,14 +107,14 @@ button { border: none; border-radius: 12px; font-weight: bold; cursor: pointer; 
 /* CONFIGURAÇÃO PARA OCUPAR TODO O ESPAÇO NO CELULAR */
 @media (max-width: 768px) {
     .app {
-        padding: 100px 10; /* Remove o espaço das laterais do app (esquerda e direita) */
+        padding: 100px 50; /* Remove o espaço das laterais do app (esquerda e direita) */
     }
 
     .card {
         width: 100%;
         margin-left: 0;
         margin-right: 0;
-        border-radius: 10; /* Opcional: remove o arredondado para parecer um app nativo */
+        border-radius: 0; /* Opcional: remove o arredondado para parecer um app nativo */
         padding: 15px 5px; /* Reduz o espaço interno lateral do cartão */
         box-shadow: none; /* Opcional: remove a sombra para ganhar espaço visual */
     }
