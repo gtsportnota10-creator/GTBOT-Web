@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>GTBOT Pedido</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,13 +11,12 @@
 <div class="app">
 
     <header class="header">
-        <h1>Preenchimento de Pedido</h1>
-        
+        <h1>GTBOT</h1>
+        <p>Preenchimento de Pedido</p>
     </header>
 
     <section class="card">
-        <h2> Cliente</h2>
-
+        <h2>👤 Cliente</h2>
         <div class="grid">
             <div class="campo">
                 <label>Nome do Cliente</label>
@@ -32,16 +31,16 @@
     </section>
 
     <section class="card">
-        <h2> Itens do Pedido</h2>
+        <h2>📦 Itens do Pedido</h2>
 
         <div class="tabela-wrapper">
             <table>
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Tamanho</th>
-                        <th>Número</th>
-                        <th>Quantidade</th>
+                        <th>Item</th>
+                        <th>Tam</th>
+                        <th>Nº</th>
+                        <th>Qtd</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -52,10 +51,10 @@
         <button class="btn-sec" onclick="adicionarLinha()">➕ Adicionar Item</button>
     </section>
 
-    <button class="btn-main" onclick="gerarArquivo()">Baixar Arquivo</button>
+    <button class="btn-main" onclick="gerarArquivo()">💾 Baixar Arquivo GTB</button>
 
     <button class="btn-main compartilhar" onclick="compartilharPedido()">
-        Enviar Pedido no WhatsApp
+        📤 Enviar Pedido no WhatsApp
     </button>
 
 </div>
