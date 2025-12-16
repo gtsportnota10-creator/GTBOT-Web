@@ -2,7 +2,7 @@ function adicionarLinha() {
     const lista = document.getElementById("listaItens");
     const tr = document.createElement("tr");
     tr.innerHTML = `
-        <td><input placeholder="Ex: Polo Azul"></td>
+        <td><input placeholder="Ex: João"></td>
         <td><input placeholder="G"></td>
         <td><input placeholder="10"></td>
         <td><input type="number" min="1" placeholder="1"></td>
