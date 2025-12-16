@@ -140,7 +140,11 @@ button { border: none; border-radius: 12px; font-weight: bold; cursor: pointer; 
     }
 
     td input {
-        font-size: 11px;
-        padding: 8px 1px;
-    }
+    width: 100%;
+    padding: 12px 5px; /* Aumentei de 8px para 12px para ficarem mais altos */
+    border-radius: 8px;
+    border: 1px solid #cbd5f5;
+    font-size: 15px; /* Aumentei levemente a fonte para facilitar a leitura */
+    height: 45px;    /* Força uma altura fixa confortável */
+}
 }
