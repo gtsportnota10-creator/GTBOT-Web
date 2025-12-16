@@ -2,22 +2,19 @@
     box-sizing: border-box;
 }
 
-
-    body {
+body {
     margin: 0;
-
+    padding: 0;
     font-family: "Segoe UI", Arial, sans-serif;
-
     background: radial-gradient(circle at top, #1e293b, #020617);
-
     color: #e5e7eb;
+    overflow-x: hidden; /* Evita qualquer tremida lateral */
 }
-
 
 .app {
     max-width: 900px;
     margin: auto;
-    padding: 15px; /* Reduzi um pouco para ganhar espaço */
+    padding: 15px;
 }
 
 /* HEADER */
@@ -55,23 +52,23 @@
 .campo label { font-weight: 600; font-size: 13px; margin-bottom: 4px; display: block; }
 .campo input { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #cbd5f5; font-size: 14px; }
 
-/* TABELA - O SEGREDO ESTÁ AQUI */
+/* TABELA */
 .tabela-wrapper {
     width: 100%;
-    overflow: hidden; /* Remove o scroll lateral */
+    overflow: hidden;
 }
 
 table {
     width: 100% !important;
-    min-width: unset !important; /* REMOVE OS 600px QUE ESTAVAM TRAVANDO */
-    table-layout: fixed; /* Força as colunas a respeitarem a largura da tela */
+    min-width: unset !important;
+    table-layout: fixed;
     border-collapse: collapse;
 }
 
 th {
     background: #e2e8f0;
     padding: 8px 2px;
-    font-size: 11px; /* Letras menores no cabeçalho para caber tudo */
+    font-size: 11px;
     text-align: left;
     text-transform: uppercase;
 }
@@ -86,15 +83,15 @@ td input {
     padding: 8px 2px;
     border-radius: 6px;
     border: 1px solid #cbd5f5;
-    font-size: 12px; /* Fonte menor para os dados caberem na linha */
+    font-size: 12px;
 }
 
-/* Definindo larguras fixas em % para que a soma dê 100% da tela */
-th:nth-child(1), td:nth-child(1) { width: 35%; } /* Nome */
-th:nth-child(2), td:nth-child(2) { width: 15%; } /* Tamanho */
-th:nth-child(3), td:nth-child(3) { width: 15%; } /* Número */
-th:nth-child(4), td:nth-child(4) { width: 12%; } /* Quantidade */
-th:nth-child(5), td:nth-child(5) { width: 12%; } /* Botão X */
+/* Definição de colunas padrão */
+th:nth-child(1), td:nth-child(1) { width: 35%; }
+th:nth-child(2), td:nth-child(2) { width: 15%; }
+th:nth-child(3), td:nth-child(3) { width: 15%; }
+th:nth-child(4), td:nth-child(4) { width: 12%; }
+th:nth-child(5), td:nth-child(5) { width: 12%; }
 
 /* BOTÕES */
 button { border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
@@ -102,21 +99,24 @@ button { border: none; border-radius: 12px; font-weight: bold; cursor: pointer; 
 .btn-main { width: 100%; margin-top: 15px; padding: 15px; font-size: 16px; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
 .compartilhar { background: linear-gradient(135deg, #25d366, #128c7e); }
 
-/* ... mantenha o restante do código igual ... */
-
 /* CONFIGURAÇÃO PARA OCUPAR TODO O ESPAÇO NO CELULAR */
 @media (max-width: 768px) {
     .app {
-        padding: 100px 50; /* Remove o espaço das laterais do app (esquerda e direita) */
+        padding: 10px 0; /* Zerei as laterais para o card encostar no canto da tela */
     }
 
     .card {
         width: 100%;
         margin-left: 0;
         margin-right: 0;
-        border-radius: 0; /* Opcional: remove o arredondado para parecer um app nativo */
-        padding: 15px 5px; /* Reduz o espaço interno lateral do cartão */
-        box-shadow: none; /* Opcional: remove a sombra para ganhar espaço visual */
+        border-radius: 0; /* Remove arredondado lateral para ganhar espaço horizontal */
+        padding: 15px 5px; /* Mantém um respiro interno mínimo */
+        box-shadow: none; 
+    }
+
+    .grid {
+        grid-template-columns: 1fr; /* Nome e Tel do cliente um em cima do outro */
+        padding: 0 10px; /* Pequena margem apenas nos inputs do cliente */
     }
 
     .tabela-wrapper {
@@ -126,19 +126,21 @@ button { border: none; border-radius: 12px; font-weight: bold; cursor: pointer; 
 
     table {
         width: 100% !important;
-        margin: 0;
     }
 
-    /* Reduzindo as margens dos inputs para não "comerem" espaço */
+    /* Ajuste de colunas para celular - Em linha */
+    th:nth-child(1), td:nth-child(1) { width: 40% !important; } /* Nome */
+    th:nth-child(2), td:nth-child(2) { width: 18% !important; } /* Tam */
+    th:nth-child(3), td:nth-child(3) { width: 15% !important; } /* Nº */
+    th:nth-child(4), td:nth-child(4) { width: 15% !important; } /* Qtd */
+    th:nth-child(5), td:nth-child(5) { width: 12% !important; } /* Botão X */
+
+    th, td {
+        font-size: 10px;
+    }
+
     td input {
-        border-radius: 4px;
-        padding: 8px 2px;
+        font-size: 11px;
+        padding: 8px 1px;
     }
-
-    /* Ajuste final das colunas para máxima compressão */
-    th:nth-child(1), td:nth-child(1) { width: 40%; } /* Nome */
-    th:nth-child(2), td:nth-child(2) { width: 18%; } /* Tam */
-    th:nth-child(3), td:nth-child(3) { width: 15%; } /* Nº */
-    th:nth-child(4), td:nth-child(4) { width: 15%; } /* Qtd */
-    th:nth-child(5), td:nth-child(5) { width: 12%; } /* X */
 }
