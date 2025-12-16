@@ -33,7 +33,7 @@ function adicionarNovaLista() {
         <h2>Lista de Pedido ${contadorListas}</h2>
         <div class="campo modelagem">
             <label>Modelagem</label>
-            <input type="text" class="modelagem" placeholder="Ex: Conjunto Feminino">
+            <input type="text" class="modelagem" placeholder="Ex: BabyLook">
         </div>
         <div class="tabela-wrapper">
             <table>
