@@ -2,33 +2,30 @@ function adicionarLinha() {
     const lista = document.getElementById("listaItens");
 
     const tr = document.createElement("tr");
+    // Mantive os data-labels caso você precise no futuro, mas o foco é o layout em linha
     tr.innerHTML = `
-        <td data-label="Item"><input placeholder="Ex: Camiseta"></td>
-        <td data-label="Tamanho"><input placeholder="P, M, G"></td>
-        <td data-label="Número"><input placeholder="00"></td>
-        <td data-label="Qtd"><input type="number" min="1" placeholder="1"></td>
+        <td data-label="Item"><input placeholder="Item"></td>
+        <td data-label="Tam"><input placeholder="Tam"></td>
+        <td data-label="Nº"><input placeholder="Nº"></td>
+        <td data-label="Qtd"><input type="number" min="1" placeholder="0"></td>
         <td><button class="btn-remove" onclick="this.closest('tr').remove()">❌</button></td>
     `;
 
     lista.appendChild(tr);
 }
 
-// cria 1 linha inicial
+// Inicializa com uma linha vazia
 adicionarLinha();
 
 /* ================================
-   GERAR ARQUIVO GTB (PADRÃO MACRO)
+   GERAR ARQUIVO GTB
 ================================ */
 function gerarArquivo() {
-    let conteudo = "";
-    conteudo += "DADOS DO CLIENTE;\n";
-
+    let conteudo = "DADOS DO CLIENTE;\n";
     const nomeCliente = document.getElementById("clienteNome").value || "";
     const telefone = document.getElementById("clienteTelefone").value || "";
 
-    conteudo += `NOME;${nomeCliente}\n`;
-    conteudo += `TELEFONE;${telefone}\n`;
-    conteudo += ";\n";
+    conteudo += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
     conteudo += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
 
     const linhas = document.querySelectorAll("#listaItens tr");
@@ -60,17 +57,14 @@ function gerarArquivo() {
 }
 
 /* ================================
-   COMPARTILHAR TEXTO (WHATSAPP)
+   WHATSAPP
 ================================ */
 function compartilharPedido() {
     let texto = "DADOS DO CLIENTE;\n";
-
     const nomeCliente = document.getElementById("clienteNome").value || "";
     const telefone = document.getElementById("clienteTelefone").value || "";
 
-    texto += `NOME;${nomeCliente}\n`;
-    texto += `TELEFONE;${telefone}\n`;
-    texto += ";\n";
+    texto += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
     texto += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
 
     const linhas = document.querySelectorAll("#listaItens tr");
@@ -94,14 +88,13 @@ function compartilharPedido() {
         return;
     }
 
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
+    
+    // Tenta usar a API de compartilhamento do celular, se falhar abre o link direto
     if (navigator.share) {
-        navigator.share({
-            title: "Pedido GTBOT",
-            text: texto
-        }).catch(() => {
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`);
-        });
+        navigator.share({ title: "Pedido GTBOT", text: texto })
+            .catch(() => window.open(url, '_blank'));
     } else {
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`);
+        window.open(url, '_blank');
     }
 }
