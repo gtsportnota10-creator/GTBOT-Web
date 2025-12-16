@@ -130,54 +130,51 @@ button {
     background: linear-gradient(135deg, #25d366, #128c7e);
 }
 
-/* MOBILE - AJUSTE PARA CELULAR */
+/* ... mantenha o restante do código igual até chegar no MOBILE ... */
+
+/* MOBILE - MODO COMPACTO EM LINHA */
 @media (max-width: 768px) {
+    .app {
+        padding: 10px; /* Reduz margem lateral do app */
+    }
+
+    .card {
+        padding: 12px; /* Reduz espaço interno do card */
+        border-radius: 12px;
+    }
+
     .grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Nome e Telefone ainda ficam um sob o outro para não apertar */
+        gap: 10px;
     }
 
-    /* Força a tabela a não ser mais uma tabela rígida */
+    /* Ajuste da Tabela para caber na tela */
     table {
-        min-width: unset !important; /* Remove os 600px */
+        min-width: 100%; /* Remove os 600px e força os 100% da tela */
+        display: table; /* Garante que continue como tabela */
     }
 
-    table, thead, tbody, th, td, tr {
-        display: block;
-        width: 100%;
+    th, td {
+        padding: 4px 2px; /* Espaçamento mínimo entre colunas */
+        font-size: 12px;  /* Texto menor para caber */
     }
 
-    /* Esconde o cabeçalho no mobile */
-    thead tr {
-        display: none;
+    td input {
+        padding: 8px 4px; /* Inputs mais baixos e estreitos */
+        font-size: 13px;
+        border-radius: 6px;
     }
 
-    /* Cada linha vira um "card" */
-    tr {
-        margin-bottom: 20px;
-        border: 2px solid #e5e7eb;
-        padding: 15px;
-        border-radius: 15px;
-        background: #fff;
+    /* Esconde colunas menos importantes se necessário, 
+       ou apenas deixa os inputs bem flexíveis */
+    .tabela-wrapper {
+        overflow-x: hidden; /* Tenta eliminar o scroll lateral */
     }
 
-    td {
-        border: none;
-        padding: 8px 0;
-        position: relative;
-    }
-
-    /* Adiciona o título do campo acima do input */
-    td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        display: block;
-        margin-bottom: 5px;
-        font-size: 12px;
-        color: #64748b;
-        text-transform: uppercase;
-    }
-
-    .btn-sec {
-        width: 100%; /* Botão "Adicionar" fica largo no celular */
-    }
+    /* Ajuste específico para as larguras das colunas no celular */
+    th:nth-child(1), td:nth-child(1) { width: 40%; } /* Nome mais largo */
+    th:nth-child(2), td:nth-child(2) { width: 20%; } /* Tamanho */
+    th:nth-child(3), td:nth-child(3) { width: 15%; } /* Número */
+    th:nth-child(4), td:nth-child(4) { width: 15%; } /* Qtd */
+    th:nth-child(5), td:nth-child(5) { width: 10%; } /* X */
 }
