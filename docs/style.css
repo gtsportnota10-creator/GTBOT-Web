@@ -12,172 +12,105 @@ body {
 .app {
     max-width: 900px;
     margin: auto;
-    padding: 20px;
+    padding: 15px; /* Reduzi um pouco para ganhar espaço */
 }
 
 /* HEADER */
 .header {
     background: linear-gradient(135deg, #2563eb, #1e40af);
-    padding: 28px;
+    padding: 20px;
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-.header h1 {
-    margin: 0;
-    font-size: 34px;
-    letter-spacing: 2px;
-}
-
-.header p {
-    margin-top: 6px;
-    opacity: 0.9;
-}
+.header h1 { margin: 0; font-size: 28px; letter-spacing: 2px; }
+.header p { margin-top: 6px; opacity: 0.9; font-size: 14px; }
 
 /* CARD */
 .card {
     background: #f8fafc;
     color: #020617;
     border-radius: 20px;
-    padding: 22px;
-    margin-bottom: 20px;
+    padding: 15px;
+    margin-bottom: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
-.card h2 {
-    margin-top: 0;
-    margin-bottom: 18px;
-}
+.card h2 { margin-top: 0; margin-bottom: 15px; font-size: 18px; }
 
 /* FORM CLIENTE */
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px;
+    gap: 15px;
 }
 
-.campo label {
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 6px;
-    display: block;
-}
+.campo label { font-weight: 600; font-size: 13px; margin-bottom: 4px; display: block; }
+.campo input { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #cbd5f5; font-size: 14px; }
 
-.campo input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 14px;
-    border: 1px solid #cbd5f5;
-    font-size: 15px;
-}
-
-/* TABELA */
+/* TABELA - O SEGREDO ESTÁ AQUI */
 .tabela-wrapper {
     width: 100%;
-    overflow-x: hidden; /* Remove scroll lateral */
+    overflow: hidden; /* Remove o scroll lateral */
 }
 
 table {
-    width: 100%;
+    width: 100% !important;
+    min-width: unset !important; /* REMOVE OS 600px QUE ESTAVAM TRAVANDO */
+    table-layout: fixed; /* Força as colunas a respeitarem a largura da tela */
     border-collapse: collapse;
-    table-layout: fixed; /* Força as larguras das colunas */
 }
-
-/* Larguras das colunas para PC */
-th:nth-child(1) { width: 40%; }
-th:nth-child(2) { width: 20%; }
-th:nth-child(3) { width: 15%; }
-th:nth-child(4) { width: 15%; }
-th:nth-child(5) { width: 10%; }
 
 th {
     background: #e2e8f0;
-    padding: 12px 5px;
-    font-size: 14px;
+    padding: 8px 2px;
+    font-size: 11px; /* Letras menores no cabeçalho para caber tudo */
     text-align: left;
+    text-transform: uppercase;
 }
 
 td {
-    padding: 8px 3px;
+    padding: 4px 1px;
     border-top: 1px solid #e5e7eb;
 }
 
 td input {
     width: 100%;
-    padding: 10px 5px;
-    border-radius: 8px;
+    padding: 8px 2px;
+    border-radius: 6px;
     border: 1px solid #cbd5f5;
-    font-size: 14px;
+    font-size: 12px; /* Fonte menor para os dados caberem na linha */
 }
+
+/* Definindo larguras fixas em % para que a soma dê 100% da tela */
+th:nth-child(1), td:nth-child(1) { width: 35%; } /* Nome */
+th:nth-child(2), td:nth-child(2) { width: 20%; } /* Tamanho */
+th:nth-child(3), td:nth-child(3) { width: 18%; } /* Número */
+th:nth-child(4), td:nth-child(4) { width: 15%; } /* Qtd */
+th:nth-child(5), td:nth-child(5) { width: 12%; } /* Botão X */
 
 /* BOTÕES */
-button {
-    border: none;
-    border-radius: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
+button { border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
+.btn-sec { margin-top: 10px; padding: 10px 15px; background: #e5e7eb; font-size: 13px; }
+.btn-main { width: 100%; margin-top: 15px; padding: 15px; font-size: 16px; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
+.compartilhar { background: linear-gradient(135deg, #25d366, #128c7e); }
 
-.btn-sec {
-    margin-top: 12px;
-    padding: 12px 18px;
-    background: #e5e7eb;
-}
-
-.btn-main {
-    width: 100%;
-    margin-top: 18px;
-    padding: 18px;
-    font-size: 18px;
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    color: white;
-    box-shadow: 0 12px 30px rgba(34,197,94,0.45);
-}
-
-.compartilhar {
-    background: linear-gradient(135deg, #25d366, #128c7e);
-}
-
-/* ===========================================
-   Ajustes Específicos para Celular (Mobile)
-   =========================================== */
+/* MOBILE */
 @media (max-width: 768px) {
-    .app {
-        padding: 10px;
-    }
-
-    .card {
-        padding: 15px 10px;
-    }
-
     .grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        grid-template-columns: 1fr; /* Só o nome/tel do cliente empilha, o resto segue em linha */
     }
-
-    /* Tabela compacta em linha */
+    
+    .app { padding: 5px; } /* Máximo proveito de tela */
+    
     th, td {
-        padding: 6px 2px;
-        font-size: 11px; /* Diminui a fonte do cabeçalho */
+        font-size: 10px; /* Bem pequeno para não quebrar linha */
     }
 
     td input {
-        padding: 8px 4px;
-        font-size: 12px; /* Diminui a fonte do input */
-        border-radius: 6px;
-    }
-
-    /* Forçar colunas a serem bem estreitas para caber tudo */
-    th:nth-child(1), td:nth-child(1) { width: 38%; } /* Item */
-    th:nth-child(2), td:nth-child(2) { width: 22%; } /* Tam */
-    th:nth-child(3), td:nth-child(3) { width: 15%; } /* Num */
-    th:nth-child(4), td:nth-child(4) { width: 15%; } /* Qtd */
-    th:nth-child(5), td:nth-child(5) { width: 10%; } /* X */
-
-    .btn-sec {
-        width: 100%;
-        font-size: 14px;
+        font-size: 11px;
+        padding: 6px 1px;
     }
 }
