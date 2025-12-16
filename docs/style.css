@@ -97,20 +97,43 @@ button { border: none; border-radius: 12px; font-weight: bold; cursor: pointer; 
 .btn-main { width: 100%; margin-top: 15px; padding: 15px; font-size: 16px; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
 .compartilhar { background: linear-gradient(135deg, #25d366, #128c7e); }
 
-/* MOBILE */
+/* ... mantenha o restante do código igual ... */
+
+/* CONFIGURAÇÃO PARA OCUPAR TODO O ESPAÇO NO CELULAR */
 @media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr; /* Só o nome/tel do cliente empilha, o resto segue em linha */
-    }
-    
-    .app { padding: 5px; } /* Máximo proveito de tela */
-    
-    th, td {
-        font-size: 10px; /* Bem pequeno para não quebrar linha */
+    .app {
+        padding: 10px 0; /* Remove o espaço das laterais do app (esquerda e direita) */
     }
 
-    td input {
-        font-size: 11px;
-        padding: 6px 1px;
+    .card {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 0; /* Opcional: remove o arredondado para parecer um app nativo */
+        padding: 15px 5px; /* Reduz o espaço interno lateral do cartão */
+        box-shadow: none; /* Opcional: remove a sombra para ganhar espaço visual */
     }
+
+    .tabela-wrapper {
+        width: 100%;
+        padding: 0;
+    }
+
+    table {
+        width: 100% !important;
+        margin: 0;
+    }
+
+    /* Reduzindo as margens dos inputs para não "comerem" espaço */
+    td input {
+        border-radius: 4px;
+        padding: 8px 2px;
+    }
+
+    /* Ajuste final das colunas para máxima compressão */
+    th:nth-child(1), td:nth-child(1) { width: 40%; } /* Nome */
+    th:nth-child(2), td:nth-child(2) { width: 18%; } /* Tam */
+    th:nth-child(3), td:nth-child(3) { width: 15%; } /* Nº */
+    th:nth-child(4), td:nth-child(4) { width: 15%; } /* Qtd */
+    th:nth-child(5), td:nth-child(5) { width: 12%; } /* X */
 }
