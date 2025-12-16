@@ -1,165 +1,72 @@
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     font-family: "Segoe UI", Arial, sans-serif;
     background: radial-gradient(circle at top, #1e293b, #020617);
     color: #e5e7eb;
     overflow-x: hidden;
 }
 
-.app {
-    max-width: 900px;
-    margin: auto;
-    padding: 15px;
-}
+.app { max-width: 900px; margin: auto; padding: 15px; }
 
-/* HEADER */
 .header {
     background: linear-gradient(135deg, #2563eb, #1e40af);
-    padding: 25px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    padding: 20px; border-radius: 20px; text-align: center;
     margin-bottom: 20px;
 }
 
-.header h1 { margin: 0; font-size: 28px; letter-spacing: 1px; color: #fff; }
-
-/* CARD */
+/* ESTILO DOS CARTÕES */
 .card {
-    background: #f8fafc;
-    color: #020617;
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    background: #f8fafc; color: #020617;
+    border-radius: 15px; padding: 15px;
+    margin-bottom: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
-.card h2 { margin-top: 0; margin-bottom: 15px; font-size: 18px; color: #1e293b; }
+.card h2 { margin-top: 0; margin-bottom: 15px; font-size: 18px; }
 
-/* FORM CLIENTE */
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.campo label { font-weight: 600; font-size: 13px; margin-bottom: 5px; display: block; color: #475569; }
+/* GRID DO CLIENTE */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.campo label { font-weight: 600; font-size: 13px; margin-bottom: 5px; display: block; }
 .campo input { 
-    width: 100%; 
-    padding: 14px; 
-    border-radius: 10px; 
-    border: 1px solid #cbd5e1; 
-    font-size: 16px; /* Fonte maior para o cliente enxergar bem */
+    width: 100%; padding: 14px; border-radius: 10px; 
+    border: 1px solid #cbd5e1; font-size: 16px; 
 }
 
-/* TABELA - ESTRUTURA PARA LINHA ÚNICA */
-.tabela-wrapper {
-    width: 100%;
-    overflow: hidden;
-}
+/* TABELA EM LINHA */
+.tabela-wrapper { width: 100%; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
 
-table {
-    width: 100% !important;
-    min-width: unset !important;
-    table-layout: fixed;
-    border-collapse: collapse;
-}
+th { background: #e2e8f0; padding: 10px 2px; font-size: 12px; text-align: left; color: #475569; }
+td { padding: 8px 2px; border-top: 1px solid #e2e8f0; }
 
-th {
-    background: #e2e8f0;
-    padding: 10px 2px;
-    font-size: 12px;
-    text-align: left;
-    color: #475569;
-}
-
-td {
-    padding: 8px 2px; /* Aumentei o espaço entre as linhas */
-    border-top: 1px solid #e2e8f0;
-}
-
-/* AQUI ESTÁ O AUMENTO DAS CAIXAS DE PREENCHER */
+/* CAIXAS DE PREENCHER GRANDES */
 td input {
-    width: 100%;
-    height: 48px;    /* Altura maior para facilitar o clique */
-    padding: 10px 5px;
-    border-radius: 8px;
-    border: 1px solid #cbd5e1;
-    font-size: 15px; /* Fonte interna maior */
-    outline: none;
-}
-
-td input:focus {
-    border-color: #2563eb;
-    background-color: #fff;
+    width: 100%; height: 48px; padding: 10px 5px;
+    border-radius: 8px; border: 1px solid #cbd5e1;
+    font-size: 15px; outline: none;
 }
 
 /* LARGURAS DAS COLUNAS */
-th:nth-child(1), td:nth-child(1) { width: 38%; } /* Item */
-th:nth-child(2), td:nth-child(2) { width: 18%; } /* Tam */
-th:nth-child(3), td:nth-child(3) { width: 15%; } /* Nº */
-th:nth-child(4), td:nth-child(4) { width: 15%; } /* Qtd */
-th:nth-child(5), td:nth-child(5) { width: 14%; } /* Botão X */
+.col-nome { width: 38%; }
+.col-tam  { width: 18%; }
+.col-num  { width: 15%; }
+.col-qtd  { width: 15%; }
+.col-del  { width: 14%; }
 
 /* BOTÕES */
 button { border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
-
-.btn-sec { 
-    margin-top: 12px; 
-    padding: 15px; 
-    background: #e2e8f0; 
-    width: 100%; /* No celular facilita muito ser largo */
-    font-size: 14px;
-}
-
-.btn-remove {
-    background: #fee2e2;
-    color: #ef4444;
-    height: 48px;
-    width: 100%;
-}
-
-.btn-main { 
-    width: 100%; 
-    margin-top: 15px; 
-    padding: 20px; 
-    font-size: 18px; 
-    background: linear-gradient(135deg, #22c55e, #16a34a); 
-    color: white;
-}
-
+.btn-sec { margin-top: 12px; padding: 15px; background: #e2e8f0; width: 100%; font-size: 14px; }
+.btn-main { width: 100%; margin-top: 15px; padding: 20px; font-size: 18px; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
 .compartilhar { background: linear-gradient(135deg, #25d366, #128c7e); }
+.btn-remove { background: #fee2e2; color: #ef4444; height: 48px; width: 100%; }
 
 /* AJUSTE PARA OCUPAR TELA TODA NO CELULAR */
 @media (max-width: 768px) {
-    .app {
-        padding: 10px 0; /* Cola o app nas laterais do celular */
-    }
-
-    .card {
-        border-radius: 0; /* Card reto para usar 100% da largura horizontal */
-        padding: 15px 8px;
-        box-shadow: none;
-    }
-
-    .grid {
-        grid-template-columns: 1fr;
-        padding: 0 5px;
-    }
-
-    /* Inputs da tabela no celular */
-    td input {
-        height: 45px;    /* Leve ajuste para não ficar gigante no celular pequeno */
-        font-size: 14px;
-        padding: 8px 2px;
-    }
-
-    th, td {
-        font-size: 11px;
-    }
+    .app { padding: 10px 0; }
+    .card { border-radius: 0; padding: 15px 8px; box-shadow: none; width: 100%; }
+    .grid { grid-template-columns: 1fr; padding: 0 5px; }
+    
+    td input { height: 45px; font-size: 14px; }
+    th, td { font-size: 11px; }
 }
