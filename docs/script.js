@@ -29,10 +29,9 @@ function adicionarNovaLista() {
     const card = document.createElement("section");
     card.className = "card lista-pedido";
     
-    // Estrutura da nova lista sem botão inline
     card.innerHTML = `
         <h2>Lista de Pedido ${contadorListas}</h2>
-        <div class="campo">
+        <div class="campo modelagem">
             <label>Modelagem</label>
             <input type="text" class="modelagem" placeholder="Ex: Conjunto Feminino">
         </div>
@@ -52,13 +51,21 @@ function adicionarNovaLista() {
         </div>
     `;
     
-    // Cria o botão "Adicionar Item" dinamicamente e adiciona evento
+    // Cria o botão "Adicionar Item" dinamicamente
     const botaoAdicionarItem = document.createElement("button");
     botaoAdicionarItem.className = "btn-sec";
     botaoAdicionarItem.textContent = "➕ Adicionar Item";
     botaoAdicionarItem.addEventListener("click", () => adicionarLinha(botaoAdicionarItem));
     
+    // Cria o botão "Enviar no WhatsApp" para cada lista
+    const botaoEnviarWhatsapp = document.createElement("button");
+    botaoEnviarWhatsapp.className = "btn-main compartilhar";
+    botaoEnviarWhatsapp.textContent = "Enviar no WhatsApp";
+    botaoEnviarWhatsapp.addEventListener("click", () => compartilharPedidoLista(card));
+    
+    // Adiciona os botões no card
     card.appendChild(botaoAdicionarItem);
+    card.appendChild(botaoEnviarWhatsapp);
     
     // Insere antes do botão "Adicionar Nova Lista"
     const botaoNovaLista = document.querySelector("button[onclick='adicionarNovaLista()']");
@@ -100,46 +107,53 @@ function gerarArquivo() {
     a.click();
 }
 
-function compartilharPedido() {
+// Função para compartilhar uma lista específica no WhatsApp
+function compartilharPedidoLista(card) {
     const nomeCliente = document.getElementById("clienteNome").value || "";
     const telefone = document.getElementById("clienteTelefone").value || "";
-    const cards = document.querySelectorAll(".lista-pedido");
+    
+    let texto = "DADOS DO CLIENTE;\n";
+    texto += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
 
-    let delay = 0; // atraso em milissegundos entre cada abertura
+    const modelagem = card.querySelector(".modelagem").value || "";
+    texto += `MODELAGEM;${modelagem}\n`;
+    texto += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
 
-    cards.forEach(card => {
-        let texto = "DADOS DO CLIENTE;\n";
-        texto += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
+    const linhas = card.querySelectorAll(".lista-itens tr");
+    let temItem = false;
 
-        const modelagem = card.querySelector(".modelagem").value || "";
-        texto += `MODELAGEM;${modelagem}\n`;
-        texto += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
+    linhas.forEach(linha => {
+        const inputs = linha.querySelectorAll("input");
+        const item = inputs[0].value || "";
+        const tamanho = inputs[1].value || "";
+        const numero = inputs[2].value || "";
+        const quantidade = inputs[3].value || "";
 
-        const linhas = card.querySelectorAll(".lista-itens tr");
-        let temItem = false;
-
-        linhas.forEach(linha => {
-            const inputs = linha.querySelectorAll("input");
-            const item = inputs[0].value || "";
-            const tamanho = inputs[1].value || "";
-            const numero = inputs[2].value || "";
-            const quantidade = inputs[3].value || "";
-
-            if (item || tamanho || numero || quantidade) {
-                temItem = true;
-                texto += `${item};${tamanho};${numero};${quantidade}\n`;
-            }
-        });
-
-        if (!temItem) return; // pula listas vazias
-
-        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
-
-        // abre cada lista com atraso de 500ms para evitar bloqueio de pop-up
-        setTimeout(() => {
-            window.open(url, "_blank");
-        }, delay);
-
-        delay += 500; // aumenta o atraso para a próxima lista
+        if (item || tamanho || numero || quantidade) {
+            temItem = true;
+            texto += `${item};${tamanho};${numero};${quantidade}\n`;
+        }
     });
+
+    if (!temItem) {
+        alert("Preencha pelo menos um item na lista.");
+        return;
+    }
+
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
+    window.open(url, "_blank");
 }
+
+// Inicializa a primeira linha da primeira lista ao carregar a página
+document.addEventListener("DOMContentLoaded", () => {
+    const primeiraLista = document.querySelector(".lista-pedido .btn-sec");
+    adicionarLinha(primeiraLista);
+
+    // Adiciona botão "Enviar no WhatsApp" para a primeira lista
+    const primeiraCard = document.querySelector(".lista-pedido");
+    const botaoEnviarWhatsapp = document.createElement("button");
+    botaoEnviarWhatsapp.className = "btn-main compartilhar";
+    botaoEnviarWhatsapp.textContent = "Enviar no WhatsApp";
+    botaoEnviarWhatsapp.addEventListener("click", () => compartilharPedidoLista(primeiraCard));
+    primeiraCard.appendChild(botaoEnviarWhatsapp);
+});
