@@ -2,12 +2,11 @@ function adicionarLinha() {
     const lista = document.getElementById("listaItens");
 
     const tr = document.createElement("tr");
-    // Mantive os data-labels caso você precise no futuro, mas o foco é o layout em linha
     tr.innerHTML = `
-        <td data-label="Item"><input placeholder="Item"></td>
-        <td data-label="Tam"><input placeholder="Tam"></td>
-        <td data-label="Nº"><input placeholder="Nº"></td>
-        <td data-label="Qtd"><input type="number" min="1" placeholder="0"></td>
+        <td data-label="Modelo"><input placeholder="Ex: Gola Polo"></td>
+        <td data-label="Tam"><input placeholder="M"></td>
+        <td data-label="Nº"><input placeholder="10"></td>
+        <td data-label="Qtd"><input type="number" min="1" placeholder="1"></td>
         <td><button class="btn-remove" onclick="this.closest('tr').remove()">❌</button></td>
     `;
 
