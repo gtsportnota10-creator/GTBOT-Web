@@ -1,41 +1,18 @@
-function adicionarLinha(tabelaId) {
-    const lista = document.getElementById(tabelaId);
+function adicionarLinha() {
+    const lista = document.getElementById("listaItens");
     const tr = document.createElement("tr");
     tr.innerHTML = `
-        <td><input placeholder="Ex: Polo"></td>
+        <td><input placeholder="Ex: Polo Azul"></td>
         <td><input placeholder="G"></td>
         <td><input placeholder="10"></td>
-        <td><input type="number" min="1" value="1"></td>
+        <td><input type="number" min="1" placeholder="1"></td>
         <td><button class="btn-remove" onclick="this.closest('tr').remove()">❌</button></td>
     `;
     lista.appendChild(tr);
 }
+adicionarLinha();
 
-function mostrarCardShort() {
-    document.getElementById('cardShorts').style.display = 'block';
-    document.getElementById('containerBtnShort').style.display = 'none';
-    adicionarLinha('listaShorts');
-}
-
-// Inicializa a primeira linha de camisa
-adicionarLinha('listaCamisas');
-
-function extrairDados(tabelaId) {
-    const linhas = document.querySelectorAll(`#${tabelaId} tr`);
-    let dados = "";
-    linhas.forEach(linha => {
-        const inputs = linha.querySelectorAll("input");
-        const mod = inputs[0].value || "";
-        const tam = inputs[1].value || "";
-        const num = inputs[2].value || "";
-        const qtd = inputs[3].value || "";
-        if (mod || tam || num || qtd) {
-            dados += `${mod};${tam};${num};${qtd}\n`;
-        }
-    });
-    return dados;
-}
-
+// ... mantenha suas funções gerarArquivo() e compartilharPedido() aqui ...
 function baixarArquivo(nome, conteudo) {
     const blob = new Blob([conteudo], { type: "text/plain;charset=utf-8" });
     const a = document.createElement("a");
