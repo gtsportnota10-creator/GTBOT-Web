@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GTBOT - Pedidos</title>
+    <title>Preencha com seu Pedido</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,11 +11,11 @@
 <div class="app">
     <header class="header">
         <h1>GTBOT</h1>
-        <p>Sistema de Pedidos Profissional</p>
+        
     </header>
 
     <section class="card">
-        <h2>👤 Dados do Cliente</h2>
+        <h2>Dados do Cliente</h2>
         <div class="grid">
             <div class="campo">
                 <label>Nome do Cliente</label>
@@ -29,49 +29,27 @@
     </section>
 
     <section class="card">
-        <h2>👕 Pedido de Camisas</h2>
+        <h2>Pedido de Camisas</h2>
         <div class="tabela-wrapper">
             <table>
                 <thead>
                     <tr>
-                        <th class="col-nome">Modelo</th>
+                        <th class="col-nome">Nome</th>
                         <th class="col-tam">Tam</th>
                         <th class="col-num">Nº</th>
                         <th class="col-qtd">Qtd</th>
                         <th class="col-del"></th>
                     </tr>
                 </thead>
-                <tbody id="listaCamisas"></tbody>
+                <tbody id="listaItens"></tbody>
             </table>
         </div>
-        <button class="btn-sec" onclick="adicionarLinha('listaCamisas')">➕ Adicionar Camisa</button>
+        <button class="btn-sec" onclick="adicionarLinha()">➕ Adicionar Camisa</button>
     </section>
 
-    <div id="containerBtnShort" style="padding: 0 10px; margin-bottom: 20px;">
-        <button class="btn-sec" style="background: #1e293b; color: white;" onclick="mostrarCardShort()">🩳 Incluir Shorts no Pedido</button>
-    </div>
-
-    <section class="card" id="cardShorts" style="display: none;">
-        <h2>🩳 Pedido de Shorts</h2>
-        <div class="tabela-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="col-nome">Modelo</th>
-                        <th class="col-tam">Tam</th>
-                        <th class="col-num">Nº</th>
-                        <th class="col-qtd">Qtd</th>
-                        <th class="col-del"></th>
-                    </tr>
-                </thead>
-                <tbody id="listaShorts"></tbody>
-            </table>
-        </div>
-        <button class="btn-sec" onclick="adicionarLinha('listaShorts')">➕ Adicionar Short</button>
-    </section>
-
-    <button class="btn-main" onclick="gerarArquivo()">💾 Baixar Arquivos GTB</button>
-    <button class="btn-main compartilhar" onclick="compartilharPedido()">📤 Enviar Pedido no WhatsApp</button>
+    ]
+    <button class="btn-main compartilhar" onclick="compartilharPedido()">📤 Enviar no WhatsApp</button>
+    <button class="btn-main" onclick="gerarArquivo()">Baixar Arquivo </button>
 </div>
 
 <script src="script.js"></script>
