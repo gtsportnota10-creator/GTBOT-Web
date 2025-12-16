@@ -28,23 +28,31 @@
         </div>
     </section>
 
-    <section class="card">
-        <h2>Lista de Pedido</h2>
-        <div class="tabela-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="col-nome">Nome</th>
-                        <th class="col-tam">Tam</th>
-                        <th class="col-num">Nº</th>
-                        <th class="col-qtd">Quantidade</th>
-                        <th class="col-del"></th>
-                    </tr>
-                </thead>
-                <tbody id="listaItens"></tbody>
-            </table>
-        </div>
-        <button class="btn-sec" onclick="adicionarLinha()">➕ Adicionar Item</button>
+    <section class="card lista-pedido">
+    <h2>Lista de Pedido 1</h2>
+    <div class="campo">
+        <label>Modelagem</label>
+        <input type="text" class="modelagem" placeholder="Ex: Conjunto Masculino">
+    </div>
+    <div class="tabela-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-nome">Nome</th>
+                    <th class="col-tam">Tam</th>
+                    <th class="col-num">Nº</th>
+                    <th class="col-qtd">Quantidade</th>
+                    <th class="col-del"></th>
+                </tr>
+            </thead>
+            <tbody class="lista-itens"></tbody>
+        </table>
+    </div>
+    <button class="btn-sec" onclick="adicionarLinha(this)">➕ Adicionar Item</button>
+</section>
+
+<button class="btn-sec" onclick="adicionarNovaLista()">➕ Adicionar Nova Lista</button>
+
     </section>
     
     <button class="btn-main compartilhar" onclick="compartilharPedido()">Enviar no WhatsApp</button>
