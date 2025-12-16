@@ -8,8 +8,19 @@ function adicionarLinha() {
         <td><input type="number" min="1" placeholder="1"></td>
         <td><button class="btn-remove" onclick="this.closest('tr').remove()">❌</button></td>
     `;
+
     lista.appendChild(tr);
+
+    // Seleciona o primeiro input (o de Modelo/Nome) da linha que acabou de ser criada
+    const primeiroInput = tr.querySelector("input");
+
+    // O foco automático com um leve atraso mantém o teclado aberto no celular
+    setTimeout(() => {
+        primeiroInput.focus();
+    }, 50);
 }
+
+// Inicia a primeira linha
 adicionarLinha();
 
 // ... mantenha suas funções gerarArquivo() e compartilharPedido() aqui ...
