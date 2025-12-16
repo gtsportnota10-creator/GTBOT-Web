@@ -144,16 +144,19 @@ function compartilharPedidoLista(card) {
     window.open(url, "_blank");
 }
 
-// Inicializa a primeira linha da primeira lista ao carregar a página
 document.addEventListener("DOMContentLoaded", () => {
-    const primeiraLista = document.querySelector(".lista-pedido .btn-sec");
-    adicionarLinha(primeiraLista);
-
-    // Adiciona botão "Enviar no WhatsApp" para a primeira lista
+    // Seleciona a primeira lista que já existe no HTML
     const primeiraCard = document.querySelector(".lista-pedido");
+    
+    // Adiciona apenas a primeira linha da tabela dessa lista
+    const botaoAdicionarItem = primeiraCard.querySelector(".btn-sec");
+    adicionarLinha(botaoAdicionarItem);
+
+    // Adiciona botão "Enviar no WhatsApp" apenas para essa primeira lista
     const botaoEnviarWhatsapp = document.createElement("button");
     botaoEnviarWhatsapp.className = "btn-main compartilhar";
     botaoEnviarWhatsapp.textContent = "Enviar no WhatsApp";
     botaoEnviarWhatsapp.addEventListener("click", () => compartilharPedidoLista(primeiraCard));
     primeiraCard.appendChild(botaoEnviarWhatsapp);
 });
+
