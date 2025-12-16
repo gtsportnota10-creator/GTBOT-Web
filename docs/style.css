@@ -73,7 +73,7 @@ body {
     font-size: 15px;
 }
 
-/* TABELA */
+/* TABELA - PADRÃO DESKTOP */
 .tabela-wrapper {
     overflow-x: auto;
 }
@@ -87,6 +87,7 @@ table {
 th {
     background: #e2e8f0;
     padding: 12px;
+    text-align: left;
 }
 
 td {
@@ -129,48 +130,54 @@ button {
     background: linear-gradient(135deg, #25d366, #128c7e);
 }
 
-/* MOBILE */
+/* MOBILE - AJUSTE PARA CELULAR */
 @media (max-width: 768px) {
     .grid {
         grid-template-columns: 1fr;
     }
 
-    /* Transformando a tabela em blocos empilhados */
+    /* Força a tabela a não ser mais uma tabela rígida */
+    table {
+        min-width: unset !important; /* Remove os 600px */
+    }
+
     table, thead, tbody, th, td, tr {
         display: block;
         width: 100%;
     }
 
-    /* Esconde o cabeçalho da tabela (Nome, Tamanho, etc) pois não cabem na horizontal */
+    /* Esconde o cabeçalho no mobile */
     thead tr {
         display: none;
     }
 
+    /* Cada linha vira um "card" */
     tr {
         margin-bottom: 20px;
-        border: 1px solid #e5e7eb;
-        padding: 10px;
+        border: 2px solid #e5e7eb;
+        padding: 15px;
         border-radius: 15px;
         background: #fff;
     }
 
     td {
         border: none;
-        padding: 6px 0;
+        padding: 8px 0;
         position: relative;
     }
 
-    /* Adiciona um "rótulo" antes de cada campo para o cliente saber o que preencher */
+    /* Adiciona o título do campo acima do input */
     td:before {
-        content: attr(data-label); /* Pega o texto do atributo data-label que vamos por no HTML */
+        content: attr(data-label);
         font-weight: bold;
         display: block;
-        margin-bottom: 4px;
+        margin-bottom: 5px;
         font-size: 12px;
         color: #64748b;
+        text-transform: uppercase;
     }
 
-    table {
-        min-width: unset; /* Remove os 600px que forçavam o scroll */
+    .btn-sec {
+        width: 100%; /* Botão "Adicionar" fica largo no celular */
     }
-        }
+}
