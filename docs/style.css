@@ -102,7 +102,7 @@ button { border: none; border-radius: 12px; font-weight: bold; cursor: pointer; 
 /* CONFIGURAÇÃO PARA OCUPAR TODO O ESPAÇO NO CELULAR */
 @media (max-width: 768px) {
     .app {
-        padding: 50px 0; /* Remove o espaço das laterais do app (esquerda e direita) */
+        padding: 100px 0; /* Remove o espaço das laterais do app (esquerda e direita) */
     }
 
     .card {
