@@ -29,6 +29,7 @@ function adicionarNovaLista() {
     const card = document.createElement("section");
     card.className = "card lista-pedido";
     
+    // Estrutura da nova lista sem botão inline
     card.innerHTML = `
         <h2>Lista de Pedido ${contadorListas}</h2>
         <div class="campo">
@@ -49,15 +50,22 @@ function adicionarNovaLista() {
                 <tbody class="lista-itens"></tbody>
             </table>
         </div>
-        <button class="btn-sec" onclick="adicionarLinha(this)">➕ Adicionar Item</button>
     `;
+    
+    // Cria o botão "Adicionar Item" dinamicamente e adiciona evento
+    const botaoAdicionarItem = document.createElement("button");
+    botaoAdicionarItem.className = "btn-sec";
+    botaoAdicionarItem.textContent = "➕ Adicionar Item";
+    botaoAdicionarItem.addEventListener("click", () => adicionarLinha(botaoAdicionarItem));
+    
+    card.appendChild(botaoAdicionarItem);
     
     // Insere antes do botão "Adicionar Nova Lista"
     const botaoNovaLista = document.querySelector("button[onclick='adicionarNovaLista()']");
     app.insertBefore(card, botaoNovaLista);
 }
 
-// Função para gerar arquivo de **todas** as listas
+// Função para gerar arquivo de todas as listas
 function gerarArquivo() {
     let conteudo = "DADOS DO CLIENTE;\n";
     const nomeCliente = document.getElementById("clienteNome").value || "";
@@ -129,7 +137,7 @@ function compartilharPedido() {
     }
 }
 
-// Inicia a primeira linha da primeira lista
+// Inicializa a primeira linha da primeira lista ao carregar a página
 document.addEventListener("DOMContentLoaded", () => {
     const primeiraLista = document.querySelector(".lista-pedido .btn-sec");
     adicionarLinha(primeiraLista);
