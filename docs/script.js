@@ -31,9 +31,9 @@ function adicionarNovaLista() {
     
     card.innerHTML = `
         <h2>Lista de Pedido ${contadorListas}</h2>
-        <div class="campo modelagem">
+        <div class="campo">
             <label>Modelagem</label>
-            <input type="text" class="modelagem" placeholder="Ex: BabyLook">
+            <input type="text" class="modelagem-valor" placeholder="Ex: BabyLook">
         </div>
         <div class="tabela-wrapper">
             <table>
@@ -51,8 +51,6 @@ function adicionarNovaLista() {
         </div>
     `;
 
-
-    
     // Cria o botão "Adicionar Item" dinamicamente
     const botaoAdicionarItem = document.createElement("button");
     botaoAdicionarItem.className = "btn-sec";
@@ -65,28 +63,26 @@ function adicionarNovaLista() {
     botaoEnviarWhatsapp.textContent = "Enviar no WhatsApp";
     botaoEnviarWhatsapp.addEventListener("click", () => compartilharPedidoLista(card));
     
+    // Botão "Fechar Lista"
+    const botaoFecharLista = document.createElement("button");
+    botaoFecharLista.className = "btn-remove";
+    botaoFecharLista.textContent = "Fechar Lista";
+    botaoFecharLista.style.marginTop = "10px";
+    botaoFecharLista.style.marginLeft = "10px";
+    botaoFecharLista.addEventListener("click", () => {
+        if (confirm("Deseja realmente fechar esta lista?")) {
+            card.remove();
+        }
+    });
+
     // Adiciona os botões no card
     card.appendChild(botaoAdicionarItem);
     card.appendChild(botaoEnviarWhatsapp);
+    card.appendChild(botaoFecharLista);
     
     // Insere antes do botão "Adicionar Nova Lista"
     const botaoNovaLista = document.querySelector("button[onclick='adicionarNovaLista()']");
     app.insertBefore(card, botaoNovaLista);
-
-    // Botão "Fechar Lista"
-const botaoFecharLista = document.createElement("button");
-botaoFecharLista.className = "btn-remove"; // pode usar estilo similar ao botão ❌
-botaoFecharLista.textContent = "Fechar Lista";
-botaoFecharLista.style.marginTop = "10px"; // espaçamento opcional
-botaoFecharLista.addEventListener("click", () => {
-    if (confirm("Deseja realmente fechar esta lista?")) {
-        card.remove(); // remove o card inteiro
-    }
-});
-
-// Adiciona o botão no final do card
-card.appendChild(botaoFecharLista);
-
 }
 
 // Função para gerar arquivo de todas as listas
@@ -97,8 +93,11 @@ function gerarArquivo() {
     conteudo += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
 
     const cards = document.querySelectorAll(".lista-pedido");
-    cards.forEach((card, idx) => {
-        const modelagem = card.querySelector(".modelagem").value || "";
+    cards.forEach((card) => {
+        // Alterado para buscar .modelagem-valor
+        const inputModelagem = card.querySelector(".modelagem-valor");
+        const modelagem = inputModelagem ? inputModelagem.value : "";
+        
         conteudo += `MODELAGEM;${modelagem}\n`;
         conteudo += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
 
@@ -114,7 +113,7 @@ function gerarArquivo() {
                 conteudo += `${item};${tamanho};${numero};${quantidade}\n`;
             }
         });
-        conteudo += ";\n"; // separador de listas
+        conteudo += ";\n"; 
     });
 
     const blob = new Blob([conteudo], { type: "text/plain;charset=utf-8" });
@@ -132,7 +131,10 @@ function compartilharPedidoLista(card) {
     let texto = "DADOS DO CLIENTE;\n";
     texto += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
 
-    const modelagem = card.querySelector(".modelagem").value || "";
+    // Alterado para buscar .modelagem-valor
+    const inputModelagem = card.querySelector(".modelagem-valor");
+    const modelagem = inputModelagem ? inputModelagem.value : "";
+    
     texto += `MODELAGEM;${modelagem}\n`;
     texto += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
 
@@ -162,18 +164,21 @@ function compartilharPedidoLista(card) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Seleciona a primeira lista que já existe no HTML
     const primeiraCard = document.querySelector(".lista-pedido");
     
-    // Adiciona apenas a primeira linha da tabela dessa lista
+    // Garante que o input da primeira lista também tenha a classe correta
+    const inputPrimeira = primeiraCard.querySelector("input.modelagem");
+    if(inputPrimeira) {
+        inputPrimeira.classList.remove("modelagem");
+        inputPrimeira.classList.add("modelagem-valor");
+    }
+
     const botaoAdicionarItem = primeiraCard.querySelector(".btn-sec");
     adicionarLinha(botaoAdicionarItem);
 
-    // Adiciona botão "Enviar no WhatsApp" apenas para essa primeira lista
     const botaoEnviarWhatsapp = document.createElement("button");
     botaoEnviarWhatsapp.className = "btn-main compartilhar";
     botaoEnviarWhatsapp.textContent = "Enviar no WhatsApp";
     botaoEnviarWhatsapp.addEventListener("click", () => compartilharPedidoLista(primeiraCard));
     primeiraCard.appendChild(botaoEnviarWhatsapp);
 });
-
