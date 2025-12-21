@@ -1,40 +1,74 @@
-let contadorListas = 1; // Contador para numerar as listas
+let contadorListas = 1;
 
-// Função para adicionar uma linha em uma lista específica
+/* ===============================
+   EVENTOS GLOBAIS
+================================ */
+document.addEventListener("click", function (e) {
+
+    // Adicionar item
+    if (e.target.classList.contains("btn-add-item")) {
+        e.preventDefault();
+        adicionarLinha(e.target);
+    }
+
+    // Enviar WhatsApp
+    if (e.target.classList.contains("btn-enviar")) {
+        e.preventDefault();
+        const card = e.target.closest(".lista-pedido");
+        compartilharPedidoLista(card);
+    }
+
+    // Fechar lista
+    if (e.target.classList.contains("btn-fechar-lista")) {
+        e.preventDefault();
+        const card = e.target.closest(".lista-pedido");
+        if (confirm("Deseja realmente fechar esta lista?")) {
+            card.remove();
+        }
+    }
+});
+
+// Botões fixos
+document.getElementById("btnNovaLista").addEventListener("click", adicionarNovaLista);
+document.getElementById("btnBaixar").addEventListener("click", gerarArquivo);
+
+/* ===============================
+   FUNÇÕES
+================================ */
+
 function adicionarLinha(botao) {
-    const card = botao.closest(".card");
+    const card = botao.closest(".lista-pedido");
     const lista = card.querySelector(".lista-itens");
-    
+
     const tr = document.createElement("tr");
     tr.innerHTML = `
         <td><input placeholder="Ex: João"></td>
         <td><input placeholder="G"></td>
         <td><input placeholder="10"></td>
         <td><input type="number" min="1" placeholder="1"></td>
-        <td><button class="btn-remove" onclick="this.closest('tr').remove()">❌</button></td>
+        <td><button type="button" class="btn-remove" onclick="this.closest('tr').remove()">❌</button></td>
     `;
-    lista.appendChild(tr);
 
-    // Foco automático no primeiro input da nova linha
-    const primeiroInput = tr.querySelector("input");
-    setTimeout(() => primeiroInput.focus(), 50);
+    lista.appendChild(tr);
+    setTimeout(() => tr.querySelector("input").focus(), 50);
 }
 
-// Função para criar uma nova lista
 function adicionarNovaLista() {
     contadorListas++;
-    
-    const app = document.querySelector(".app");
-    
+
+    const container = document.getElementById("listasContainer");
+
     const card = document.createElement("section");
     card.className = "card lista-pedido";
-    
+
     card.innerHTML = `
         <h2>Lista de Pedido ${contadorListas}</h2>
+
         <div class="campo">
             <label>Modelagem</label>
             <input type="text" class="modelagem-valor" placeholder="Ex: BabyLook">
         </div>
+
         <div class="tabela-wrapper">
             <table>
                 <thead>
@@ -42,78 +76,38 @@ function adicionarNovaLista() {
                         <th class="col-nome">Nome</th>
                         <th class="col-tam">Tam</th>
                         <th class="col-num">Nº</th>
-                        <th class="col-qtd">Quantidade</th>
+                        <th class="col-qtd">Qtd</th>
                         <th class="col-del"></th>
                     </tr>
                 </thead>
                 <tbody class="lista-itens"></tbody>
             </table>
         </div>
+
+        <button type="button" class="btn-sec btn-add-item">➕ Adicionar Item</button>
+        <button type="button" class="btn-main compartilhar btn-enviar">Enviar no WhatsApp</button>
+        <button type="button" class="btn-remove btn-fechar-lista" style="margin-top:10px;">Fechar Lista</button>
     `;
 
-    // Cria o botão "Adicionar Item" dinamicamente
-    const botaoAdicionarItem = document.createElement("button");
-    botaoAdicionarItem.className = "btn-sec";
-    botaoAdicionarItem.textContent = "➕ Adicionar Item";
-    botaoAdicionarItem.addEventListener("click", () => adicionarLinha(botaoAdicionarItem));
-    
-    // Cria o botão "Enviar no WhatsApp" para cada lista
-    const botaoEnviarWhatsapp = document.createElement("button");
-    botaoEnviarWhatsapp.className = "btn-main compartilhar";
-    botaoEnviarWhatsapp.textContent = "Enviar no WhatsApp";
-    botaoEnviarWhatsapp.addEventListener("click", () => compartilharPedidoLista(card));
-    
-    // Botão "Fechar Lista"
-    const botaoFecharLista = document.createElement("button");
-    botaoFecharLista.className = "btn-remove";
-    botaoFecharLista.textContent = "Fechar Lista";
-    botaoFecharLista.style.marginTop = "10px";
-    botaoFecharLista.style.marginLeft = "10px";
-    botaoFecharLista.addEventListener("click", () => {
-        if (confirm("Deseja realmente fechar esta lista?")) {
-            card.remove();
-        }
-    });
-
-    // Adiciona os botões no card
-    card.appendChild(botaoAdicionarItem);
-    card.appendChild(botaoEnviarWhatsapp);
-    card.appendChild(botaoFecharLista);
-    
-    // Insere antes do botão "Adicionar Nova Lista"
-    const botaoNovaLista = document.querySelector("button[onclick='adicionarNovaLista()']");
-    app.insertBefore(card, botaoNovaLista);
+    container.appendChild(card);
 }
 
-// Função para gerar arquivo de todas as listas
 function gerarArquivo() {
     let conteudo = "DADOS DO CLIENTE;\n";
-    const nomeCliente = document.getElementById("clienteNome").value || "";
-    const telefone = document.getElementById("clienteTelefone").value || "";
-    conteudo += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
+    conteudo += `NOME;${clienteNome.value}\nTELEFONE;${clienteTelefone.value}\n;\n`;
 
-    const cards = document.querySelectorAll(".lista-pedido");
-    cards.forEach((card) => {
-        // Alterado para buscar .modelagem-valor
-        const inputModelagem = card.querySelector(".modelagem-valor");
-        const modelagem = inputModelagem ? inputModelagem.value : "";
-        
+    document.querySelectorAll(".lista-pedido").forEach(card => {
+        const modelagem = card.querySelector(".modelagem-valor").value || "";
         conteudo += `MODELAGEM;${modelagem}\n`;
         conteudo += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
 
-        const linhas = card.querySelectorAll(".lista-itens tr");
-        linhas.forEach(linha => {
-            const inputs = linha.querySelectorAll("input");
-            const item = inputs[0].value || "";
-            const tamanho = inputs[1].value || "";
-            const numero = inputs[2].value || "";
-            const quantidade = inputs[3].value || "";
-
-            if (item || tamanho || numero || quantidade) {
-                conteudo += `${item};${tamanho};${numero};${quantidade}\n`;
+        card.querySelectorAll(".lista-itens tr").forEach(tr => {
+            const i = tr.querySelectorAll("input");
+            if (i[0].value || i[1].value || i[2].value || i[3].value) {
+                conteudo += `${i[0].value};${i[1].value};${i[2].value};${i[3].value}\n`;
             }
         });
-        conteudo += ";\n"; 
+        conteudo += ";\n";
     });
 
     const blob = new Blob([conteudo], { type: "text/plain;charset=utf-8" });
@@ -123,62 +117,33 @@ function gerarArquivo() {
     a.click();
 }
 
-// Função para compartilhar uma lista específica no WhatsApp
 function compartilharPedidoLista(card) {
-    const nomeCliente = document.getElementById("clienteNome").value || "";
-    const telefone = document.getElementById("clienteTelefone").value || "";
-    
     let texto = "DADOS DO CLIENTE;\n";
-    texto += `NOME;${nomeCliente}\nTELEFONE;${telefone}\n;\n`;
+    texto += `NOME;${clienteNome.value}\nTELEFONE;${clienteTelefone.value}\n;\n`;
 
-    // Alterado para buscar .modelagem-valor
-    const inputModelagem = card.querySelector(".modelagem-valor");
-    const modelagem = inputModelagem ? inputModelagem.value : "";
-    
-    texto += `MODELAGEM;${modelagem}\n`;
+    texto += `MODELAGEM;${card.querySelector(".modelagem-valor").value}\n`;
     texto += "ITEM;TAMANHO;NÚMERO;QUANTIDADE\n";
 
-    const linhas = card.querySelectorAll(".lista-itens tr");
     let temItem = false;
 
-    linhas.forEach(linha => {
-        const inputs = linha.querySelectorAll("input");
-        const item = inputs[0].value || "";
-        const tamanho = inputs[1].value || "";
-        const numero = inputs[2].value || "";
-        const quantidade = inputs[3].value || "";
-
-        if (item || tamanho || numero || quantidade) {
+    card.querySelectorAll(".lista-itens tr").forEach(tr => {
+        const i = tr.querySelectorAll("input");
+        if (i[0].value || i[1].value || i[2].value || i[3].value) {
             temItem = true;
-            texto += `${item};${tamanho};${numero};${quantidade}\n`;
+            texto += `${i[0].value};${i[1].value};${i[2].value};${i[3].value}\n`;
         }
     });
 
     if (!temItem) {
-        alert("Preencha pelo menos um item na lista.");
+        alert("Preencha pelo menos um item.");
         return;
     }
 
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
-    window.open(url, "_blank");
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`, "_blank");
 }
 
+/* Linha inicial automática */
 document.addEventListener("DOMContentLoaded", () => {
-    const primeiraCard = document.querySelector(".lista-pedido");
-    
-    // Garante que o input da primeira lista também tenha a classe correta
-    const inputPrimeira = primeiraCard.querySelector("input.modelagem");
-    if(inputPrimeira) {
-        inputPrimeira.classList.remove("modelagem");
-        inputPrimeira.classList.add("modelagem-valor");
-    }
-
-    const botaoAdicionarItem = primeiraCard.querySelector(".btn-sec");
-    adicionarLinha(botaoAdicionarItem);
-
-    const botaoEnviarWhatsapp = document.createElement("button");
-    botaoEnviarWhatsapp.className = "btn-main compartilhar";
-    botaoEnviarWhatsapp.textContent = "Enviar no WhatsApp";
-    botaoEnviarWhatsapp.addEventListener("click", () => compartilharPedidoLista(primeiraCard));
-    primeiraCard.appendChild(botaoEnviarWhatsapp);
+    adicionarLinha(document.querySelector(".btn-add-item"));
 });
+
